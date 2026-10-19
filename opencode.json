@@ -8,5 +8,18 @@
     }
   },
   "model": "openrouter/cohere/north-mini-code:free",
-  "small_model": "openrouter/cohere/north-mini-code:free"
+  "small_model": "openrouter/cohere/north-mini-code:free",
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "allow",
+      "git push*": "ask",
+      "git commit*": "ask"
+    },
+    "webfetch": "allow",
+    "websearch": "allow",
+    "question": "allow",
+    "external_directory": "allow",
+    "todowrite": "allow"
+  }
 }
