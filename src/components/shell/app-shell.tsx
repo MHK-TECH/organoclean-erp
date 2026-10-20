@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { MenuIcon, BellIcon, PlusIcon, XIcon } from "@hugeicons/core-free-icons";
+import { XIcon } from "@hugeicons/core-free-icons";
 import { navGroups, dashboardIcon } from "@/lib/nav";
 import type { NavItem } from "@/lib/nav";
 
@@ -90,7 +90,13 @@ function SidebarContent({
   );
 }
 
-export default function AppShell({ children }: { children: React.ReactNode }) {
+export default function AppShell({
+  children,
+  topbar,
+}: {
+  children: React.ReactNode;
+  topbar: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -99,6 +105,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     setLastPath(pathname);
     setOpen(false);
   }
+
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("oc:menu:open", handler);
+    return () => window.removeEventListener("oc:menu:open", handler);
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -136,42 +148,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       ) : null}
 
       <div className="flex w-full flex-col md:pl-14 lg:pl-60">
-        {/* Topbar */}
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-slate-200 bg-white/90 px-3 backdrop-blur sm:px-4">
-          <button
-            type="button"
-            aria-label="Open menu"
-            onClick={() => setOpen(true)}
-            className="grid size-9 place-items-center rounded-lg text-slate-600 hover:bg-slate-100 md:hidden"
-          >
-            <HugeiconsIcon icon={MenuIcon} className="size-5" strokeWidth={1.8} aria-hidden />
-          </button>
-
-          <p className="truncate text-sm font-medium text-slate-700">{pathname === "/" ? "Dashboard" : pathname.replace("/", "").replaceAll("/", " / ")}</p>
-
-          <div className="ml-auto flex items-center gap-1.5">
-            <button
-              type="button"
-              aria-label="Create new record"
-              className="grid size-9 place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
-            >
-              <HugeiconsIcon icon={PlusIcon} className="size-5" strokeWidth={1.8} aria-hidden />
-            </button>
-            <button
-              type="button"
-              aria-label="Notifications"
-              className="grid size-9 place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
-            >
-              <HugeiconsIcon icon={BellIcon} className="size-5" strokeWidth={1.8} aria-hidden />
-            </button>
-            <span
-              aria-hidden
-              className="grid size-9 place-items-center rounded-full bg-emerald-600 text-xs font-bold text-white"
-            >
-              MHK
-            </span>
-          </div>
-        </header>
+        {topbar}
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
