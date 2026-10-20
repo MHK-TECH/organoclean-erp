@@ -1,21 +1,21 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { products, locations } from "@/db/schema";
-import { requireUser, writeAudit } from "@/server/auth";
 import { ensurePermission } from "@/server/guard";
+import { writeAudit } from "@/server/auth";
 import { requireFrom, optionalStr, parseMinor, parseQty } from "@/lib/money";
 
 const KINDS = ["raw", "intermediate", "finished", "packaging"] as const;
 
-export async function createProductAction(_prev: unknown, formData: FormData) {
+export async function createProductAction(formData: FormData) {
+  let created = false;
+  let error: string | null = null;
   try {
     const user = await ensurePermission("products.write");
-    if (!_prev) { /* noop, keeps signature from useActionState */ }
-    void _prev;
-
     const db = getDb();
     const sku = requireFrom(formData, "sku");
     const name = requireFrom(formData, "name");
@@ -49,12 +49,14 @@ export async function createProductAction(_prev: unknown, formData: FormData) {
       entityId: id,
       summary: `Created product ${sku} — ${name}`,
     });
-    revalidatePath("/products");
-    revalidatePath("/");
-    return {};
+    created = true;
   } catch (err) {
-    return { error: err instanceof Error ? err.message : "Failed to create product" };
+    error = err instanceof Error ? err.message : "Failed to create product";
   }
+  if (error) redirect(`/products?error=${encodeURIComponent(error)}`);
+  revalidatePath("/products");
+  revalidatePath("/");
+  redirect(`/products?saved=${created ? "1" : "0"}`);
 }
 
 export async function updateProductStatusAction(formData: FormData) {
