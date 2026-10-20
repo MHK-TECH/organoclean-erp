@@ -28,7 +28,7 @@ export const DEMO_ROLES: { key: string; name: string; permissions: string[] }[] 
   { key: "lab_scientist", name: "Laboratory / R&D Scientist", permissions: ["lab.read", "lab.write", "formulation.read", "formulation.edit", "products.read"] },
   { key: "qa_manager", name: "Quality Assurance Manager", permissions: ["quality.read", "quality.record", "quality.approve", "production.read", "inventory.read", "lab.read"] },
   { key: "inventory_manager", name: "Inventory Manager", permissions: ["inventory.read", "inventory.adjust", "inventory.transfer", "products.read", "procurement.read", "procurement.write"] },
-  { key: "sales_manager", name: "Sales Manager", permissions: ["sales.read", "sales.write", "customers", "products.read", "invoice.approve", "finance.read"] },
+  { key: "sales_manager", name: "Sales Manager", permissions: ["sales.read", "sales.write", "products.read", "invoice.approve", "finance.read"] },
   { key: "auditor_readonly", name: "Auditor (read-only)", permissions: ["inventory.read", "production.read", "quality.read", "procurement.read", "sales.read", "finance.read", "audit.read"] },
 ];
 

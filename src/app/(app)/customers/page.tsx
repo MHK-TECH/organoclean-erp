@@ -2,10 +2,12 @@ import { requireUser } from "@/server/auth";
 import { getDb } from "@/db";
 import { customers } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
-import { PageHeader, Card, Table, Td, Badge, statusTone, Empty } from "@/components/ui/kit";
+import { PageHeader, Card, Table, Td, Badge, Empty } from "@/components/ui/kit";
 import { dt, money } from "@/lib/fmt";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { createCustomerAction } from "@/server/actions/sales-actions";
+
+export const instant = false;
 
 export default async function CustomersPage(props: { searchParams: Promise<{ error?: string; saved?: string }> }) {
   const sp = await props.searchParams;

@@ -11,6 +11,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { PlusIcon, ArrowUpDownIcon } from "@hugeicons/core-free-icons";
 import { SubmitButton } from "@/components/ui/submit-button";
 
+export const instant = false;
+
 export default async function InventoryPage(props: {
   searchParams: Promise<{ error?: string; saved?: string }>;
 }) {

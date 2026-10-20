@@ -20,6 +20,8 @@ import { Card, StatCard, Badge, statusTone, Table, Td, Empty } from "@/component
 import { money } from "@/lib/fmt";
 import { stockLevels } from "@/server/services/core";
 
+export const instant = false;
+
 export default async function DashboardPage() {
   const user = await requireUser();
   const db = getDb();

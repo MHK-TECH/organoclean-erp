@@ -10,6 +10,8 @@ import { createProductAction, updateProductStatusAction } from "@/server/actions
 import { HugeiconsIcon } from "@hugeicons/react";
 import { PlusIcon } from "@hugeicons/core-free-icons";
 
+export const instant = false;
+
 export default async function ProductsPage() {
   const user = await requireUser();
   const canWrite = user.isPlatformSuperAdmin || user.permissions.has("products.write");

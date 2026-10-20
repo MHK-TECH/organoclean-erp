@@ -4,6 +4,7 @@ import LoginForm from "@/components/auth/login-form";
 import { getSessionUser } from "@/server/auth";
 
 export const metadata: Metadata = { title: "Sign in" };
+export const instant = false;
 
 export default async function LoginPage() {
   const user = await getSessionUser();

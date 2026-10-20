@@ -14,6 +14,8 @@ import {
   receivePOAction,
 } from "@/server/actions/procurement-actions";
 
+export const instant = false;
+
 export default async function ProcurementPage(props: { searchParams: Promise<{ po?: string; error?: string; saved?: string }> }) {
   const sp = await props.searchParams;
   const user = await requireUser();

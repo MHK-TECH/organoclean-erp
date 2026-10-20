@@ -8,6 +8,8 @@ import { money, dt, qtyFmt } from "@/lib/fmt";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { createSOAction, addSOItemAction, setSOStatusAction } from "@/server/actions/sales-actions";
 
+export const instant = false;
+
 export default async function SalesPage(props: { searchParams: Promise<{ so?: string; error?: string; saved?: string }> }) {
   const sp = await props.searchParams;
   const user = await requireUser();

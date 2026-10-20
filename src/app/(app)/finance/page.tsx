@@ -8,6 +8,8 @@ import { SubmitButton } from "@/components/ui/submit-button";
 import { approveInvoiceAction, recordPaymentAction } from "@/server/actions/sales-actions";
 import { createInvoiceFromOrder } from "@/server/actions/finance-actions";
 
+export const instant = false;
+
 export default async function FinancePage(props: { searchParams: Promise<{ error?: string; saved?: string }> }) {
   const sp = await props.searchParams;
   const user = await requireUser();

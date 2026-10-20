@@ -38,8 +38,14 @@ export const PERMISSIONS = [
   { key: "finance.write", module: "finance", description: "Record payments and expenses" },
 
   { key: "users.manage", module: "admin", description: "Invite, disable users and assign roles" },
+  { key: "user.admin", module: "admin", description: "Create, disable users and manage role assignments" },
   { key: "settings.manage", module: "admin", description: "Manage organization settings, units and numbering" },
+  { key: "org.manage", module: "admin", description: "Manage organization profile and internal tasks" },
   { key: "integrations.manage", module: "admin", description: "Manage API credentials, webhooks and integrations" },
+  { key: "integration.read", module: "admin", description: "View integration event stream" },
+  { key: "maintenance.edit", module: "operations", description: "Manage equipment register and maintenance status" },
+  { key: "docs.manage", module: "workspace", description: "Register and manage compliance documents" },
+  { key: "ai.run", module: "workspace", description: "Run and review AI polish/generation jobs" },
   { key: "audit.read", module: "admin", description: "View audit trail and session history (CEO/admin/auditor)" },
   { key: "modules.manage", module: "admin", description: "Enable/disable platform modules for the tenant" },
 ] as const;

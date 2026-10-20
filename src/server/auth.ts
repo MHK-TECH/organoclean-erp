@@ -2,8 +2,8 @@ import "server-only";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createHash, randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
-import { and, eq, gt, isNull, desc } from "drizzle-orm";
-import { getDb, schema } from "@/db";
+import { and, eq, gt, isNull, desc, sql } from "drizzle-orm";
+import { getDb } from "@/db";
 import {
   auditEvents,
   loginAttempts,
@@ -89,7 +89,7 @@ export async function getSessionUser(): Promise<SessionUser | null> {
     .select({ session: sessions, user: users })
     .from(sessions)
     .innerJoin(users, eq(sessions.userId, users.id))
-    .where(and(eq(sessions.tokenHash, tokenHash(token)), isNull(sessions.revokedAt), gt(sessions.expiresAt, new Date())))
+    .where(and(eq(sessions.tokenHash, tokenHash(token)), isNull(sessions.revokedAt), gt(sessions.expiresAt, sql`(unixepoch('subsec') * 1000)`)))
     .get();
 
   if (!row || row.user.status !== "active") return null;

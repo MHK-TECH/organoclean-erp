@@ -1,6 +1,7 @@
 import { drizzle as drizzleSqlite } from "drizzle-orm/better-sqlite3";
 import BetterSqlite3 from "better-sqlite3";
-import { drizzle as drizzleD1 } from "drizzle-orm/d1";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import * as schema from "./schema";
 
 /**
@@ -22,8 +23,6 @@ function runMigrations(sqlite: unknown): void {
   const applied = new Set(
     conn.prepare("SELECT name FROM _migration_history").all().map((r) => (r as { name: string }).name),
   );
-  const fs = require("node:fs") as typeof import("node:fs");
-  const path = require("node:path") as typeof import("node:path");
   const dir = path.join(process.cwd(), "drizzle");
   if (fs.existsSync(dir)) {
     const files = fs.readdirSync(dir).filter((f) => f.endsWith(".sql")).sort();

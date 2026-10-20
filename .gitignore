@@ -46,3 +46,5 @@ next-env.d.ts
 # local sqlite runtime db
 /local.db
 /local.db-*
+
+/e2e-flow.mjs

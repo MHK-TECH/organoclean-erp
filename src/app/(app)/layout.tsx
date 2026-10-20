@@ -4,6 +4,8 @@ import { requireUser } from "@/server/auth";
 import { bootstrapDemoTenant } from "@/server/bootstrap";
 import { logoutAction } from "@/server/actions/auth-actions";
 
+export const instant = false;
+
 bootstrapDemoTenant(); // idempotent, once per process
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
