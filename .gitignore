@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local npm cache (disk-space workaround)
 .npm-cache/
+
+# local sqlite runtime db
+/local.db
+/local.db-*
